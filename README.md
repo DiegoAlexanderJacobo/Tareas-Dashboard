@@ -16,3 +16,6 @@ El proyecto está  containerizado para facilitar su ejecución sin necesidad de 
 
 ```bash
 docker compose up
+```
+
+Normalmente se ejecuta en el `http://localhost:4200/`
