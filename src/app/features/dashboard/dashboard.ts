@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
@@ -17,6 +17,7 @@ import { RequirementModal, RequirementModalData } from '../requirement-modal/req
 export class Dashboard implements OnInit, OnDestroy {
   private requirementService = inject(RequirementService);
   private dialog = inject(Dialog);
+  private cdr = inject(ChangeDetectorRef);
   private sub?: Subscription;
 
   pendientes: Requirement[] = [];
@@ -28,6 +29,7 @@ export class Dashboard implements OnInit, OnDestroy {
       this.pendientes = reqs.filter(r => r.status === 'Pendiente');
       this.enProceso = reqs.filter(r => r.status === 'En Proceso');
       this.completados = reqs.filter(r => r.status === 'Completado');
+      this.cdr.detectChanges(); // Forzar actualización de la vista
     });
   }
 

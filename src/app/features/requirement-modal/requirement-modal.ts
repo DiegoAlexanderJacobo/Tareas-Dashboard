@@ -1,8 +1,16 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { Requirement, RequirementStatus } from '../../core/models/requirement';
+
+export function pastDateValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) return null;
+    const todayStr = new Date().toISOString().split('T')[0];
+    return control.value < todayStr ? { pastDate: true } : null;
+  };
+}
 
 export interface RequirementModalData {
   mode: 'create' | 'view';
@@ -21,6 +29,7 @@ export class RequirementModal implements OnInit {
   form: FormGroup;
   mode: 'create' | 'view' | 'edit' = 'create';
   requirement?: Requirement;
+  minDate: string;
 
   constructor(
     private fb: FormBuilder,
@@ -37,10 +46,13 @@ export class RequirementModal implements OnInit {
       status: [data.defaultStatus || 'Pendiente', Validators.required],
       priority: ['Media', Validators.required],
       assignee: ['', Validators.required],
-      dueDate: [''],
+      dueDate: ['', pastDateValidator()],
       createdAt: [{ value: '', disabled: true }],
       modifiedAt: [{ value: '', disabled: true }],
     });
+
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
   }
 
   ngOnInit(): void {
