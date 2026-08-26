@@ -48,7 +48,7 @@ export class RequirementService {
     this.requirementsSubject.next(mockData);
   }
 
-  // 3. Acciones de modificación (Tus "reducers")
+  // Acciones de modificación
   addRequirement(requirement: Requirement) {
     const currentList = this.requirementsSubject.getValue();
     this.requirementsSubject.next([...currentList, requirement]);

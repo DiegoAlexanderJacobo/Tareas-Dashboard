@@ -1,9 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RequirementService } from '../../core/services/requirement.service';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.css',
+  styleUrls: ['./dashboard.css']
 })
-export class Dashboard {}
+export class DashboardComponent {
+  // Conexión con el servicio.
+  private requirementService = inject(RequirementService);
+
+  // Mandar los datos a la vista
+  requirements$ = this.requirementService.requirements$;
+}

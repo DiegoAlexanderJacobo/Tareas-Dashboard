@@ -1,11 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { DashboardComponent } from './features/dashboard/dashboard';
 
 @Component({
   selector: 'app-root',
-  imports: [],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  standalone: true,
+  imports: [DashboardComponent],
+  template: `<app-dashboard></app-dashboard>`,
+  styleUrls: ['./app.css']
 })
+
 export class App {
-  protected readonly title = signal('tareas-dashboard');
+  title = 'tareas-dashboard';
 }
