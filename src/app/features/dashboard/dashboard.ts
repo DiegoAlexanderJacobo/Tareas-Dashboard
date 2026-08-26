@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class Dashboard implements OnInit, OnDestroy {
   private requirementService = inject(RequirementService);
   private sub?: Subscription;
 

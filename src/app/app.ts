@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { DashboardComponent } from './features/dashboard/dashboard';
+import { Dashboard } from './features/dashboard/dashboard';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [DashboardComponent],
+  imports: [Dashboard],
   template: `<app-dashboard></app-dashboard>`,
   styleUrls: ['./app.css']
 })
