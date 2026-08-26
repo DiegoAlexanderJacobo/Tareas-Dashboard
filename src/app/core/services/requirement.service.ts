@@ -61,4 +61,18 @@ export class RequirementService {
     );
     this.requirementsSubject.next(updatedList);
   }
+
+  updateRequirement(updatedRequirement: Requirement) {
+    const currentList = this.requirementsSubject.getValue();
+    const updatedList = currentList.map(req =>
+      req.id === updatedRequirement.id ? { ...updatedRequirement, modifiedAt: new Date() } : req
+    );
+    this.requirementsSubject.next(updatedList);
+  }
+
+  deleteRequirement(id: string) {
+    const currentList = this.requirementsSubject.getValue();
+    const updatedList = currentList.filter(req => req.id !== id);
+    this.requirementsSubject.next(updatedList);
+  }
 }

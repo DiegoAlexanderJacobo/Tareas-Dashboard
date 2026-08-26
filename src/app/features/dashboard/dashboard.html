@@ -41,6 +41,13 @@
                 <p class="text-slate-500 mt-1 text-sm sm:text-base">Gestiona los requerimientos y mueve las tarjetas
                     según su estado.</p>
             </div>
+            <button type="button" (click)="openCreateModal()" 
+                class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg shadow-sm shadow-indigo-200 transition-colors flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+                <span class="hidden sm:inline">Agregar</span>
+            </button>
         </div>
 
         <!-- Contenedor Drag & Drop -->
@@ -55,15 +62,22 @@
                             class="w-2.5 h-2.5 rounded-full bg-rose-400 shadow-[0_0_8px_rgba(251,113,133,0.6)]"></span>
                         Pendiente
                     </h2>
-                    <span class="bg-slate-200 text-slate-600 text-xs font-bold py-1 px-2.5 rounded-full">{{
-                        pendientes.length }}</span>
+                    <div class="flex items-center gap-2">
+                        <button type="button" (click)="openCreateModal('Pendiente')" title="Agregar Pendiente"
+                                class="text-slate-400 hover:text-indigo-600 transition-colors p-1 hover:bg-indigo-50 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <span class="bg-slate-200 text-slate-600 text-xs font-bold py-1 px-2.5 rounded-full">{{ pendientes.length }}</span>
+                    </div>
                 </div>
 
                 <div cdkDropList [cdkDropListData]="pendientes" (cdkDropListDropped)="drop($event, 'Pendiente')"
                     class="min-h-[200px] flex flex-col gap-3">
 
                     @for (req of pendientes; track req.id) {
-                    <div cdkDrag
+                    <div cdkDrag (click)="openViewModal(req)"
                         class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 cursor-grab active:cursor-grabbing hover:shadow-md hover:border-slate-300 transition-[box-shadow,border-color] duration-150 group relative">
                         <div class="flex justify-between items-start mb-3">
                             <span class="text-[11px] font-bold tracking-wide uppercase px-2.5 py-1 rounded-md"
@@ -105,15 +119,22 @@
                         <span class="w-2.5 h-2.5 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.6)]"></span>
                         En Proceso
                     </h2>
-                    <span class="bg-slate-200 text-slate-600 text-xs font-bold py-1 px-2.5 rounded-full">{{
-                        enProceso.length }}</span>
+                    <div class="flex items-center gap-2">
+                        <button type="button" (click)="openCreateModal('En Proceso')" title="Agregar En Proceso"
+                                class="text-slate-400 hover:text-indigo-600 transition-colors p-1 hover:bg-indigo-50 rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <span class="bg-slate-200 text-slate-600 text-xs font-bold py-1 px-2.5 rounded-full">{{ enProceso.length }}</span>
+                    </div>
                 </div>
 
                 <div cdkDropList [cdkDropListData]="enProceso" (cdkDropListDropped)="drop($event, 'En Proceso')"
                     class="min-h-[200px] flex flex-col gap-3">
 
                     @for (req of enProceso; track req.id) {
-                    <div cdkDrag
+                    <div cdkDrag (click)="openViewModal(req)"
                         class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 cursor-grab active:cursor-grabbing hover:shadow-md hover:border-slate-300 transition-[box-shadow,border-color] duration-150 group relative">
                         <div class="flex justify-between items-start mb-3">
                             <span class="text-[11px] font-bold tracking-wide uppercase px-2.5 py-1 rounded-md"
@@ -156,15 +177,14 @@
                             class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span>
                         Completado
                     </h2>
-                    <span class="bg-slate-200 text-slate-600 text-xs font-bold py-1 px-2.5 rounded-full">{{
-                        completados.length }}</span>
+                    <span class="bg-slate-200 text-slate-600 text-xs font-bold py-1 px-2.5 rounded-full">{{ completados.length }}</span>
                 </div>
 
                 <div cdkDropList [cdkDropListData]="completados" (cdkDropListDropped)="drop($event, 'Completado')"
                     class="min-h-[200px] flex flex-col gap-3">
 
                     @for (req of completados; track req.id) {
-                    <div cdkDrag
+                    <div cdkDrag (click)="openViewModal(req)"
                         class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 cursor-grab active:cursor-grabbing hover:shadow-md hover:border-slate-300 transition-[box-shadow,border-color,opacity] duration-150 group relative opacity-80 hover:opacity-100 font-sans text-slate-900">
                         <div class="flex justify-between items-start mb-3">
                             <span
