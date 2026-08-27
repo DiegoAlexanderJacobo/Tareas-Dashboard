@@ -1,4 +1,7 @@
 /* Base CSS Reset para garantizar coherencia en toda la app y overlays de Angular CDK */
+
+@import "tailwindcss";
+
 *,
 ::before,
 ::after {
